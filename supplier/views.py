@@ -13,5 +13,5 @@ class SupplierEvaluationViewSet(viewsets.ModelViewSet):
     queryset = SupplierEvaluation.objects.all()
     serializer_class = SupplierEvaluationSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['comments', 'supplier__name']   # z. B. ?search=zuverlässig oder ?search=acme
+    search_fields = ['comments', 'supplier__name']   # z. B. ?search=zuverlässig
     ordering_fields = ['evaluation_score', 'evaluation_date']  # z. B. ?ordering=-evaluation_score
