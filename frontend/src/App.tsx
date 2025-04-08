@@ -1,4 +1,5 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import Navbar from './components/navbar';
 import { Layout } from 'antd';
 
@@ -11,14 +12,23 @@ interface AppProps {
 const App: React.FC<AppProps> = ({ onLogout }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      {/* Navigationsleiste oben */}
       <Navbar onLogout={onLogout} />
-      <Header style={{ color: 'white', fontSize: '1.5rem' }}>
+
+      {/* Seitenüberschrift */}
+      <Header style={{ color: 'white', fontSize: '1.5rem', background: '#001529' }}>
         Supplier Evaluation Dashboard
       </Header>
+
+      {/* Hauptinhalt */}
       <Content style={{ padding: '24px' }}>
-        <h1>Test</h1>
+        <Outlet />
       </Content>
-      <Footer style={{ textAlign: 'center' }}>© 2025 Marcel Mohrmann</Footer>
+
+      {/* Footer unten */}
+      <Footer style={{ textAlign: 'center' }}>
+        © 2025 Marcel Mohrmann
+      </Footer>
     </Layout>
   );
 };

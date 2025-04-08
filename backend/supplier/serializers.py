@@ -7,6 +7,13 @@ class SupplierSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SupplierEvaluationSerializer(serializers.ModelSerializer):
+    supplier = SupplierSerializer(read_only=True)
+    supplier_id = serializers.PrimaryKeyRelatedField(
+        queryset=Supplier.objects.all(),
+        source='supplier',
+        write_only=True
+    )
+
     class Meta:
         model = SupplierEvaluation
-        fields = '__all__'
+        fields = ['id', 'supplier', 'supplier_id', 'evaluation_score', 'evaluation_date', 'comments']

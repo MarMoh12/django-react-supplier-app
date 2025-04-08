@@ -1,14 +1,21 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface NavbarProps {
   onLogout: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
+  const location = useLocation();
+
+  // Aktiver Link wird basierend auf dem aktuellen Pfad hervorgehoben
+  const isActive = (path: string) => location.pathname === path ? 'active' : '';
+
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary bg-light">
+    <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">Supplier Dashboard</a>
+        <Link className="navbar-brand" to="/">Supplier Dashboard</Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -18,18 +25,20 @@ const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
+
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Home</a>
+              <Link className={`nav-link ${isActive('/suppliers')}`} to="/suppliers">
+                Supplier
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Features</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Pricing</a>
+              <Link className={`nav-link ${isActive('/evaluations')}`} to="/evaluations">
+                Evaluations
+              </Link>
             </li>
           </ul>
           <button className="btn btn-outline-danger" onClick={onLogout}>

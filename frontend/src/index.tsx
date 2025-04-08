@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from './Main';
-import "bootstrap/dist/css/bootstrap.min.css";
-import 'antd/dist/reset.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-  <React.StrictMode>
+// Einstiegspunkt der Anwendung
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <BrowserRouter>
     <Main />
-  </React.StrictMode>
+  </BrowserRouter>
 );

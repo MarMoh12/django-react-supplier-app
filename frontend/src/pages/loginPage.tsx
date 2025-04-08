@@ -8,9 +8,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // Formular absenden
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch('http://localhost:8000/api-token-auth/', {
         method: 'POST',
@@ -18,23 +19,23 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          username: username,
-          password: password,
+          username,
+          password,
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Login fehlgeschlagen');
       }
-  
+
       const data = await response.json();
       const token = data.token;
-  
+
       localStorage.setItem('token', token);
       onLoginSuccess();
     } catch (error) {
       alert('Login fehlgeschlagen. Bitte überprüfe deine Eingaben.');
-      console.error(error);
+      console.error('Login error:', error);
     }
   };
 
@@ -45,29 +46,36 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           <h3 className="text-center mb-4">Login</h3>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="usernameInput" className="form-label">Username</label>
+              <label htmlFor="usernameInput" className="form-label">
+                Username
+              </label>
               <input
-                type="username"
+                type="text"
                 className="form-control"
                 id="usernameInput"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                aria-describedby="usernameHelp"
+                autoComplete="username"
               />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="passwordInput" className="form-label">Password</label>
+              <label htmlFor="passwordInput" className="form-label">
+                Password
+              </label>
               <input
                 type="password"
                 className="form-control"
                 id="passwordInput"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
               />
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">Submit</button>
+            <button type="submit" className="btn btn-primary w-100">
+              Login
+            </button>
           </form>
         </div>
       </div>
