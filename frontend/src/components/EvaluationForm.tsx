@@ -115,8 +115,11 @@ const EvaluationForm: React.FC<Props> = ({
         <DatePicker style={{ width: '100%' }} />
       </Form.Item>
 
-      <Form.Item label="Kommentar" name="comments">
-        <TextArea rows={3} placeholder="Optionaler Kommentar..." />
+      <Form.Item 
+        label="Kommentar" 
+        name="comments"
+        rules={[{ required: true, message: 'Bitte einen Kommentar ausgeben' }]}>
+        <TextArea rows={3} placeholder="Kommentar..." />
       </Form.Item>
 
       <Form.Item>

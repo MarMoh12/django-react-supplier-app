@@ -24,8 +24,7 @@ const EvaluationList: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <h3>Lieferantenbewertungen</h3>
-
+      <p/>
       {/* Suchfeld für Kommentare oder Lieferantennamen */}
       <Input.Search
         placeholder="Nach Kommentar oder Lieferant suchen..."

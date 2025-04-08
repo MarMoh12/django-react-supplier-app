@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import SupplierEvaluationList from '../components/EvaluationList';
+import EvaluationList from '../components/EvaluationList';
 import EvaluationForm from '../components/EvaluationForm';
+import CsvUploadForm from '../components/CsvUploadForm'; // Importiere CsvUploadForm
 import { SupplierEvaluation, Supplier } from '../types/models';
 import {
   getEvaluations,
   getEvaluationsBySupplier,
   deleteEvaluation,
-  getSuppliers, // Wir benötigen die Supplier-Daten
+  getSuppliers,
 } from '../services/api';
 import { message } from 'antd';
 
@@ -79,7 +80,7 @@ const EvaluationsPage: React.FC = () => {
         {supplierId ? `Bewertungen für ${supplierName || 'Unbekannt'}` : 'Alle Bewertungen'}
       </h2>
 
-      <SupplierEvaluationList
+      <EvaluationList
         evaluations={evaluations}
         loading={loading}
         search={search}
@@ -98,6 +99,9 @@ const EvaluationsPage: React.FC = () => {
           setEditingEvaluation(null); // Nach dem Speichern zurücksetzen
         }}
       />
+
+      {/* CsvUploadForm nur anzeigen, wenn eine supplierId gesetzt ist */}
+      {supplierId && <CsvUploadForm supplierId={supplierId} />}
     </div>
   );
 };
