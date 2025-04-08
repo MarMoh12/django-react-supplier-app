@@ -7,7 +7,7 @@ class SupplierViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['name']                  # z. B. ?search=acme
+    search_fields = ['name']                  # z. B. ?search=volkwagen
     ordering_fields = ['name']                # z. B. ?ordering=name oder ?ordering=-name
 
 class SupplierEvaluationViewSet(viewsets.ModelViewSet):
