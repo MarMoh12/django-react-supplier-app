@@ -54,7 +54,7 @@ const EvaluationsPage: React.FC = () => {
   useEffect(() => {
     fetchSuppliers();
     fetchEvaluations(search);
-  }, [supplierId]);
+  }, [supplierId, search]);
 
   const handleSearch = (value: string) => {
     setSearch(value);
@@ -101,7 +101,7 @@ const EvaluationsPage: React.FC = () => {
       />
 
       {/* CsvUploadForm nur anzeigen, wenn eine supplierId gesetzt ist */}
-      {supplierId && <CsvUploadForm supplierId={supplierId} />}
+      {supplierId && <CsvUploadForm supplierId={supplierId} onCreated={fetchEvaluations}/>}
     </div>
   );
 };
