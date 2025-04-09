@@ -13,9 +13,10 @@ interface EvaluationData {
 
 interface CsvUploadFormProps {
   supplierId: number;
+  onCreated?: () => void;
 }
 
-const CsvUploadForm: React.FC<CsvUploadFormProps> = ({ supplierId }) => {
+const CsvUploadForm: React.FC<CsvUploadFormProps> = ({ supplierId, onCreated }) => {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -47,6 +48,7 @@ const CsvUploadForm: React.FC<CsvUploadFormProps> = ({ supplierId }) => {
 
             await api.post('/evaluations/', payload);
             message.success('Bewertungen erfolgreich hochgeladen!');
+            onCreated?.();
           } catch (error) {
             message.error('Fehler beim Verarbeiten der Datei.');
             console.error(error);
@@ -60,17 +62,29 @@ const CsvUploadForm: React.FC<CsvUploadFormProps> = ({ supplierId }) => {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div style={{ maxWidth: 600, marginTop: '2rem' }}>
+      <h3>Upload per CSV-Import</h3>
       <Upload
         beforeUpload={(file) => {
           handleFileChange(file);
-          return false; // Verhindert den sofortigen Upload
+          return false;
         }}
-        fileList={file ? [{ uid: file.name, name: file.name, status: 'done', url: URL.createObjectURL(file) }] : []}
+        fileList={
+          file
+            ? [
+                {
+                  uid: file.name,
+                  name: file.name,
+                  status: 'done',
+                  url: URL.createObjectURL(file),
+                } as UploadFile,
+              ]
+            : []
+        }
       >
         <Button icon={<UploadOutlined />}>CSV-Datei auswählen</Button>
       </Upload>
-
+  
       {file && (
         <Button
           style={{ marginTop: '1rem' }}
@@ -83,6 +97,6 @@ const CsvUploadForm: React.FC<CsvUploadFormProps> = ({ supplierId }) => {
       )}
     </div>
   );
-};
+};  
 
 export default CsvUploadForm;
