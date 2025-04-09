@@ -53,7 +53,7 @@ const SupplierList: React.FC<Props> = ({ suppliers, loading, onDelete, onEdit })
                 </Popconfirm>,
               ]}
             >
-              {supplier.id} – {supplier.name}
+              {supplier.name}
             </List.Item>
           )}
         />
